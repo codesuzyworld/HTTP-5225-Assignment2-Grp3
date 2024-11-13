@@ -15,10 +15,10 @@ $person = 'data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdW
 switch( $_GET['type'] )
 {
 
-  case 'project':
+  case 'event':
     
     $query = 'SELECT photo 
-      FROM projects
+      FROM events
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     $result = mysqli_query( $connect, $query );
@@ -30,7 +30,7 @@ switch( $_GET['type'] )
       
 }
 
-include 'includes/wideimage/WideImage.php';
+include 'includes/WideImage/WideImage.php';
 
 $data = base64_decode( explode( ',', $record['photo'] )[1] );
 $img = WideImage::loadFromString( $data );

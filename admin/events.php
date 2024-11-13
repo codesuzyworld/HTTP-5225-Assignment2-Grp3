@@ -41,6 +41,7 @@ $result = mysqli_query( $connect, $query );
     <th></th>
     <th align="center">ID</th>
     <th align="left">Title</th>
+    <th align="left">Description</th>
     <th align="center">Type</th>
     <th align="center">Date Start</th>
     <th align="center">Date End</th>
@@ -48,7 +49,6 @@ $result = mysqli_query( $connect, $query );
     <th align="center">Time End</th>
     <th align="center">Location</th>
     <th align="center">Event Link</th>
-    <th align="center">Photo</th>
     <th align="center">Date Added</th>
     <th></th>
     <th></th>
@@ -57,13 +57,18 @@ $result = mysqli_query( $connect, $query );
   <?php while ($record = mysqli_fetch_assoc($result)): ?>
         <tr>
             <td align="center">
-                <img src="image.php?type=event&id=<?php echo $record['id']; ?>&width=100&height=100" alt="Event Photo">
+              <?php if (!empty($record['photo'])): ?>
+                <img src="image.php?type=project&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
+              <?php else: ?>
+                      No Photo
+              <?php endif; ?>
             </td>
             <td align="center"><?php echo $record['id']; ?></td>
             <td align="left">
                 <?php echo htmlentities($record['title']); ?>
-                <br>
-                <small><?php echo htmlentities($record['content']); ?></small>
+            </td>
+            <td align="left">
+                <?php echo htmlentities($record['content']); ?>
             </td>
             <td align="center"><?php echo htmlentities($record['type']); ?></td>
             <td align="center" style="white-space: nowrap;"><?php echo htmlentities($record['dateStart']); ?></td>
@@ -78,13 +83,6 @@ $result = mysqli_query( $connect, $query );
                     N/A
                 <?php endif; ?>
             </td>
-            <td align="center">
-                <?php if (!empty($record['photo'])): ?>
-                    <a href="view_photo.php?id=<?php echo $record['id']; ?>">View Photo</a>
-                <?php else: ?>
-                    No Photo
-                <?php endif; ?>
-            </td>
             <td align="center"><?php echo htmlentities($record['dateAdded']); ?></td>
             <td align="center"><a href="events_photo.php?id=<?php echo $record['id']; ?>">Photo</a></td>
             <td align="center"><a href="events_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
@@ -94,7 +92,7 @@ $result = mysqli_query( $connect, $query );
         </tr>
     <?php endwhile; ?>
 </table>
-<p><a href="event_add.php"><i class="fas fa-plus-square"></i> Add Event</a></p>
+<p><a href="events_add.php"><i class="fas fa-plus-square"></i> Add Event</a></p>
 
 
 <?php

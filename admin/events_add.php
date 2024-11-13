@@ -13,12 +13,6 @@ if (isset($_POST['title'])) {
 
     if ($_POST['title'] && $_POST['content']) {
 
-        // Handle the photo upload if a file is uploaded
-        $photo = null;
-        if (isset($_FILES['photo']['tmp_name']) && $_FILES['photo']['tmp_name']) {
-            $photo = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
-        }
-
         $query = 'INSERT INTO events (
             title,
             content,
@@ -28,8 +22,7 @@ if (isset($_POST['title'])) {
             timeStart,
             timeEnd,
             locationID,
-            eventLink,
-            photo
+            eventLink
         ) VALUES (
             "' . mysqli_real_escape_string($connect, $_POST['title']) . '",
             "' . mysqli_real_escape_string($connect, $_POST['content']) . '",
@@ -39,9 +32,9 @@ if (isset($_POST['title'])) {
             "' . mysqli_real_escape_string($connect, $_POST['timeStart']) . '",
             "' . mysqli_real_escape_string($connect, $_POST['timeEnd']) . '",
             "' . mysqli_real_escape_string($connect, $_POST['locationID']) . '",
-            "' . mysqli_real_escape_string($connect, $_POST['eventLink']) . '",
-            "' . ($photo ? $photo : '') . '",
+            "' . mysqli_real_escape_string($connect, $_POST['eventLink']) . '"
         )';
+        
         mysqli_query($connect, $query);
 
         set_message('Event has been added');
@@ -57,7 +50,7 @@ include('includes/header.php');
 
 <h2>Add Event</h2>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post">
 
     <label for="title">Title:</label>
     <input type="text" name="title" id="title" maxlength="100" required>
@@ -131,12 +124,6 @@ include('includes/header.php');
     <input type="url" name="eventLink" id="eventLink" maxlength="255">
 
     <br>
-
-    <label for="photo">Photo:</label>
-    <input type="file" name="photo" id="photo" accept="image/*">
-
-    <br>
-
     <input type="submit" value="Add Event">
 
 </form>

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 include( 'includes/database.php' );
 include( 'includes/config.php' );
@@ -94,7 +97,7 @@ if( isset( $_GET['id'] ) )
 
 include( 'includes/header.php' );
 
-include 'includes/wideimage/WideImage.php';
+include 'includes/WideImage/WideImage.php';
 
 ?>
 
@@ -114,7 +117,7 @@ include 'includes/wideimage/WideImage.php';
 
   ?>
   <p><img src="data:image/jpg;base64,<?php echo base64_encode( $data ); ?>" width="200" height="200"></p>
-  <p><a href="projects_photo.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Photo</a></p>
+  <p><a href="events_photo.php?id=<?php echo $_GET['id']; ?>&delete"><i class="fas fa-trash-alt"></i> Delete this Photo</a></p>
 
 <?php endif; ?>
 
@@ -129,7 +132,7 @@ include 'includes/wideimage/WideImage.php';
   
 </form>
 
-<p><a href="projects.php"><i class="fas fa-arrow-circle-left"></i> Return to Event List</a></p>
+<p><a href="events.php"><i class="fas fa-arrow-circle-left"></i> Return to Event List</a></p>
 
 
 <?php

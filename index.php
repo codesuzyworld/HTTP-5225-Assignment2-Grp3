@@ -23,11 +23,11 @@ include( 'admin/includes/functions.php' );
 
   <h1>Welcome to My Website!</h1>
   <p>This is the website frontend!</p>
-
+  <p><a href="admin/index.php">Go to Admin Section</a></p>
   <?php
 
   $query = 'SELECT *
-    FROM projects
+    FROM events
     ORDER BY date DESC';
   $result = mysqli_query( $connect, $query );
 
