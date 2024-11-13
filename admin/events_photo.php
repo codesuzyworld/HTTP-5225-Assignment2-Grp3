@@ -97,7 +97,7 @@ if( isset( $_GET['id'] ) )
 
 include( 'includes/header.php' );
 
-include 'includes/WideImage/WideImage.php';
+include 'includes/WideImage/lib/WideImage.php';
 
 ?>
 

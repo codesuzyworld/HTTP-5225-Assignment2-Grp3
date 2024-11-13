@@ -9,7 +9,7 @@ secure();
 if( !isset( $_GET['id'] ) )
 {
   
-  header( 'Location: projects.php' );
+  header( 'Location: events.php' );
   die();
   
 }
@@ -20,21 +20,25 @@ if( isset( $_POST['title'] ) )
   if( $_POST['title'] and $_POST['content'] )
   {
     
-    $query = 'UPDATE projects SET
+    $query = 'UPDATE eventss SET
       title = "'.mysqli_real_escape_string( $connect, $_POST['title'] ).'",
       content = "'.mysqli_real_escape_string( $connect, $_POST['content'] ).'",
-      date = "'.mysqli_real_escape_string( $connect, $_POST['date'] ).'",
       type = "'.mysqli_real_escape_string( $connect, $_POST['type'] ).'",
-      url = "'.mysqli_real_escape_string( $connect, $_POST['url'] ).'"
+      dateStart = "'.mysqli_real_escape_string( $connect, $_POST['dateStart'] ).'",
+      dateEnd = "'.mysqli_real_escape_string( $connect, $_POST['dateEnd'] ).'",
+      timeStart = "'.mysqli_real_escape_string( $connect, $_POST['timeStart'] ).'",
+      timeEnd = "'.mysqli_real_escape_string( $connect, $_POST['timeEnd'] ).'",
+      locationID = "'.mysqli_real_escape_string( $connect, $_POST['locationID'] ).'",
+      eventLink = "'.mysqli_real_escape_string( $connect, $_POST['eventLink'] ).'",
       WHERE id = '.$_GET['id'].'
       LIMIT 1';
     mysqli_query( $connect, $query );
     
-    set_message( 'Project has been updated' );
+    set_message( 'Events has been updated' );
     
   }
 
-  header( 'Location: projects.php' );
+  header( 'Location: events.php' );
   die();
   
 }
@@ -44,7 +48,7 @@ if( isset( $_GET['id'] ) )
 {
   
   $query = 'SELECT *
-    FROM projects
+    FROM events
     WHERE id = '.$_GET['id'].'
     LIMIT 1';
   $result = mysqli_query( $connect, $query );
@@ -52,7 +56,7 @@ if( isset( $_GET['id'] ) )
   if( !mysqli_num_rows( $result ) )
   {
     
-    header( 'Location: projects.php' );
+    header( 'Location: events.php' );
     die();
     
   }
@@ -65,7 +69,7 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Edit Project</h2>
+<h2>Edit Event</h2>
 
 <form method="post">
   

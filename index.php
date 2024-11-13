@@ -28,7 +28,7 @@ include( 'admin/includes/functions.php' );
 
   $query = 'SELECT *
     FROM events
-    ORDER BY date DESC';
+    ORDER BY dateAdded DESC';
   $result = mysqli_query( $connect, $query );
 
   ?>
@@ -52,7 +52,7 @@ include( 'admin/includes/functions.php' );
 
         <p>Or by streaming the image through the image.php file:</p>
 
-        <img src="admin/image.php?type=project&id=<?php echo $record['id']; ?>&width=100&height=100">
+        <img src="admin/image.php?type=event&id=<?php echo $record['id']; ?>&width=100&height=100">
 
       <?php else: ?>
 

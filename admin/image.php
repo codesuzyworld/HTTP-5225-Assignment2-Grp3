@@ -30,7 +30,7 @@ switch( $_GET['type'] )
       
 }
 
-include 'includes/WideImage/WideImage.php';
+include 'includes/WideImage/lib/WideImage.php';
 
 $data = base64_decode( explode( ',', $record['photo'] )[1] );
 $img = WideImage::loadFromString( $data );
