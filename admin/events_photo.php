@@ -97,7 +97,6 @@ if( isset( $_GET['id'] ) )
 
 include( 'includes/header.php' );
 
-include 'includes/WideImage/lib/WideImage.php';
 
 ?>
 
@@ -112,8 +111,7 @@ include 'includes/WideImage/lib/WideImage.php';
   <?php
 
   $data = base64_decode( explode( ',', $record['photo'] )[1] );
-  $img = WideImage::loadFromString( $data );
-  $data = $img->resize( 200, 200, 'outside' )->crop( 'center', 'center', 200, 200 )->asString( 'jpg', 70 );
+  $img = $data;
 
   ?>
   <p><img src="data:image/jpg;base64,<?php echo base64_encode( $data ); ?>" width="200" height="200"></p>
