@@ -58,6 +58,7 @@ $result = mysqli_query( $connect, $query );
         <tr>
             <td align="center">
               <?php if (!empty($record['photo'])): ?>
+                <img src="<?php echo $record['photo']; ?>" style="height: 150px;">
                 <img src="image.php?type=project&id=<?php echo $record['id']; ?>&width=300&height=300&format=inside">
               <?php else: ?>
                       No Photo

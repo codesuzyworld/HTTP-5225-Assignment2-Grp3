@@ -60,18 +60,7 @@ include('includes/header.php');
     
     <label for="content">Content:</label>
     <textarea name="content" id="content" rows="10" required></textarea>
-    
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#content'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-    
+        
     <br>
 
     <label for="type">Type:</label>

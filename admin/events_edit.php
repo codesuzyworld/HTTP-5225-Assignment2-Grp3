@@ -81,19 +81,6 @@ include( 'includes/header.php' );
   <label for="content">Content:</label>
   <textarea type="text" name="content" id="content" rows="5"><?php echo htmlentities( $record['content'] ); ?></textarea>
   
-  <script>
-
-  ClassicEditor
-    .create( document.querySelector( '#content' ) )
-    .then( editor => {
-        console.log( editor );
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
-    
-  </script>
-  
   <br>
   
   <label for="url">URL:</label>
