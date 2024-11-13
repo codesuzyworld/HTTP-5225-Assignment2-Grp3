@@ -1,6 +1,6 @@
-# A Basic Vanilla PHP CMS
+# A PHP CMS System for Event Management
 
-This repository is a simple PHP CMS meant to be used as a starting point. The code consists of a simple login process, a dashboard, a place to view/add/edit/delete users, and a place to view/add/edit/delete projects. In an effort to keep the PHP code focused and basic, only the absolute basics have been included. The whole CMS only consists of HTML, PHP, and SQL.
+This repository is based on a CMS system written by codeadam. The code consists of a simple login process, a dashboard, a place to view/add/edit/delete users, and a place to view/add/edit/delete projects. In an effort to keep the PHP code focused and basic, only the absolute basics have been included. The whole CMS only consists of HTML, PHP, and SQL.
 
 A few notes regarding the CMS:
 
@@ -10,16 +10,8 @@ A few notes regarding the CMS:
 - Images are stored in the database as a base64 string
 - Image resizing is done through [WideImage](http://wideimage.sourceforge.net/) (you'll need to add this to the includes folder)
 
-> Full tutorial URL:  
-> https://codeadam.ca/learning/php-cms.html
 
-***
-
-## Repo Resources
-
-* [Visual Studio Code](https://code.visualstudio.com/) or [Brackets](http://brackets.io/) (or any code editor)
-* [Filezilla](https://filezilla-project.org/) (or any FTP program)
-
+Credits:
 <a href="https://codeadam.ca">
 <img src="https://codeadam.ca/images/code-block.png" width="100">
 </a>
