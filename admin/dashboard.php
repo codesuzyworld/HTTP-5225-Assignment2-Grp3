@@ -22,6 +22,11 @@ include( 'includes/header.php' );
     </a>
   </li>
   <li>
+    <a href="locations.php">
+      Manage Locations
+    </a>
+  </li>
+  <li>
     <a href="logout.php">
       Logout
     </a>
