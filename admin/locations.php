@@ -49,7 +49,7 @@ $result = mysqli_query( $connect, $query );
       <td align="center"><?php echo $record['id']; ?></td>
       <td align="left"><?php echo htmlentities( $record['locationName'] ); ?></td>
       <td align="left"><?php echo htmlentities( $record['address'] ); ?></td>
-      <td align ="left"><?php echo htmlentities( $record['gMapLink'] ); ?></td>
+      <td align ="left"><a href="_blank"><?php echo htmlentities( $record['gMapLink'] ); ?></a></td>
       <td align="center"><a href="users_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
       <td align="center">
         <?php if( $_SESSION['id'] != $record['id'] ): ?>
