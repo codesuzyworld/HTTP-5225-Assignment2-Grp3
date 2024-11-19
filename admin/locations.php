@@ -48,7 +48,7 @@ $result = mysqli_query( $connect, $query );
       <td align="left"><?php echo htmlentities( $record['locationName'] ); ?></td>
       <td align="left"><?php echo htmlentities( $record['address'] ); ?></td>
       <td align ="left"><a href="_blank"><?php echo htmlentities( $record['gMapLink'] ); ?></a></td>
-      <td align="center"><a href="users_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
+      <td align="center"><a href="locations_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
       <td align="center"> <a href="locations.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this location?');">Delete</a></td>
     </tr>
   <?php endwhile; ?>
