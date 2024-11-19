@@ -26,7 +26,7 @@ include( 'includes/header.php' );
 $query = 'SELECT *
   FROM location 
   '.( ( $_SESSION['id'] != 1 and $_SESSION['id'] != 4 ) ? 'WHERE id = '.$_SESSION['id'].' ' : '' ).'
-  ORDER BY id, locationName, address, gMapLink';
+  ORDER BY locationName, address, gMapLink';
 $result = mysqli_query( $connect, $query );
 
 ?>
@@ -41,8 +41,6 @@ $result = mysqli_query( $connect, $query );
     <th align="left">Map</th>
     <th></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
   <?php while( $record = mysqli_fetch_assoc( $result ) ): ?>
     <tr>
@@ -51,12 +49,7 @@ $result = mysqli_query( $connect, $query );
       <td align="left"><?php echo htmlentities( $record['address'] ); ?></td>
       <td align ="left"><a href="_blank"><?php echo htmlentities( $record['gMapLink'] ); ?></a></td>
       <td align="center"><a href="users_edit.php?id=<?php echo $record['id']; ?>">Edit</a></td>
-      <td align="center">
-        <?php if( $_SESSION['id'] != $record['id'] ): ?>
-          <a href="locations.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this location?');">Delete</a>
-        <?php endif; ?>
-      </td>
-     
+      <td align="center"> <a href="locations.php?delete=<?php echo $record['id']; ?>" onclick="javascript:confirm('Are you sure you want to delete this location?');">Delete</a></td>
     </tr>
   <?php endwhile; ?>
 </table>
