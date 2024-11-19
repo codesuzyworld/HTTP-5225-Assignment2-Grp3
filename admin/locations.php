@@ -54,7 +54,7 @@ $result = mysqli_query( $connect, $query );
   <?php endwhile; ?>
 </table>
 
-<p><a href="users_add.php"><i class="fas fa-plus-square"></i> Add Location</a></p>
+<p><a href="locations_add.php"><i class="fas fa-plus-square"></i> Add Location</a></p>
 
 
 <?php

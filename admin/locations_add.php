@@ -9,7 +9,7 @@ secure();
 if( isset( $_POST['locationName'] ) )
 {
   
-  if( $_POST['locationName'] and $_POST['address'] )
+  if( $_POST['locationName'] and $_POST['address'] and $_POST['gMapLink'])
   {
     
     $query = 'INSERT INTO location (
@@ -18,13 +18,13 @@ if( isset( $_POST['locationName'] ) )
         gMapLink
        
       ) VALUES (
-        "'.mysqli_real_escape_string( $connect, $_POST['LocationName'] ).'",
+        "'.mysqli_real_escape_string( $connect, $_POST['locationName'] ).'",
         "'.mysqli_real_escape_string( $connect, $_POST['address'] ).'",
         "'.mysqli_real_escape_string( $connect, $_POST['gMapLink'] ).'"
       )';
     mysqli_query( $connect, $query );
     
-    set_message( 'User has been added' );
+    set_message( 'Location has been added' );
     
   }
 
@@ -35,7 +35,7 @@ if( isset( $_POST['locationName'] ) )
   die();
   */
 
-  header( 'Location: users.php' );
+  header( 'Location: locations.php' );
   die();
   
 }
@@ -44,28 +44,22 @@ include( 'includes/header.php' );
 
 ?>
 
-<h2>Add User</h2>
+<h2>Add Location</h2>
 
 <form method="post">
   
-  <label for="first">First Name:</label>
-  <input type="text" name="first" id="first">
+  <label for="location">Location:</label>
+  <input type="text" name="locationName" id="locationName">
   
   <br>
   
-  <label for="last">Last Name:</label>
-  <input type="text" name="last" id="last">
+  <label for="address">Address:</label>
+  <input type="text" name="address" id="address">
   
   <br>
   
-  <label for="email">Email:</label>
-  <input type="email" name="email" id="email">
-  
-  <br>
-  
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password">
-  
+  <label for="map">Map:</label>
+  <input type="text" name="gMapLink" id="gMapLink">
   <br>
   
   <label for="active">Active:</label>
@@ -89,7 +83,7 @@ include( 'includes/header.php' );
   
 </form>
 
-<p><a href="users.php"><i class="fas fa-arrow-circle-left"></i> Return to Location List</a></p>
+<p><a href="locations.php"><i class="fas fa-arrow-circle-left"></i> Return to Location List</a></p>
 
 
 <?php
