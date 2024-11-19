@@ -52,8 +52,6 @@ include( 'admin/includes/functions.php' );
 
         <p>Or by streaming the image through the image.php file:</p>
 
-        <img src="admin/image.php?type=event&id=<?php echo $record['id']; ?>&width=100&height=100">
-
       <?php else: ?>
 
         <p>This record does not have an image!</p>
