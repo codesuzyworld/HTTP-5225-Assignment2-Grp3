@@ -85,7 +85,9 @@ include('includes/header.php');
         </div>
     </div>
 </div>
-
+<div class="text-center">
+      <a href="../index.php" class="btn btn-link">Return to Main Page</a>
+</div>
 <?php
 
 include('includes/footer.php');
