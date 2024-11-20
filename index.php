@@ -78,8 +78,12 @@ include('admin/includes/functions.php');
           <?php
           $eventTypes = ['All', 'Conference', 'Webinar', 'Concert', 'Meetup', 'Network'];
           foreach ($eventTypes as $eventType) {
+            // If event type = all, then the type string will be empty
             $typeValue = $eventType === 'All' ? '' : $eventType;
+            // Set active if 'type' matches the event type
+            // Set inactive if it doesnt match or it's all event type
             $isActive = (isset($_GET['type']) && $_GET['type'] === $eventType) || (!isset($_GET['type']) && $eventType === 'All');
+            // If the the event search is active, then apply the class button primary
             $btnClass = $isActive ? 'btn-primary' : 'btn-outline-primary';
             echo '<button type="submit" name="type" value="' . htmlentities($typeValue) . '" class="btn ' . $btnClass . ' me-2 mb-2 px-4">' . $eventType . '</button>';
           }
@@ -116,12 +120,13 @@ include('admin/includes/functions.php');
   $type = isset($_GET['type']) ? mysqli_real_escape_string($connect, $_GET['type']) : '';
   $dateOrder = isset($_GET['dateOrder']) && in_array($_GET['dateOrder'], ['asc', 'desc']) ? $_GET['dateOrder'] : 'desc';
 
-  // Build the SQL Query
+  // SQL Query
   $query = "SELECT * FROM events WHERE 1";
-
+          
   if (!empty($search)) {
     $query .= " AND title LIKE '%$search%'";
   }
+  
   if (!empty($type)) {
     $query .= " AND type = '$type'";
   }
