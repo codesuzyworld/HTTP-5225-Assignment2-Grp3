@@ -42,7 +42,7 @@ include('admin/includes/functions.php');
 
 <style>
   .card-img-fixed {
-    max-height: 300px;
+    height: 300px;
     width: 100%;
     object-fit: cover; 
   }
