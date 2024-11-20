@@ -12,57 +12,103 @@ include( 'admin/includes/functions.php' );
   <meta charset="UTF-8">
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   
-  <title>Website Admin</title>
+  <title>Find your Event</title>
   
-  <link href="styles.css" type="text/css" rel="stylesheet">
-  
-  <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
 </head>
 <body>
 
-  <h1>Welcome to My Website!</h1>
-  <p>This is the website frontend!</p>
-  <p><a href="admin/index.php">Go to Admin Section</a></p>
-  <?php
+<header class="bg-primary text-white py-3">
+    <div class="container">
+        <h1 class="mb-0">Find Your Event</h1>
+        <nav>
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link text-white" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="admin/index.php">Admin Section</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
+</header>
+
+<!-- Search Bar -->
+<div class="container">
+      <form method="get" action="index.php" class="mt-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search by Event Name" value="<?php echo isset($_GET['search']) ? htmlentities($_GET['search']) : ''; ?>">
+            <button class="btn btn-light" type="submit">Search</button>
+        </div>
+      </form>
+  </div>
+
+<div class="container mt-4">
+  <?php
+  // Error Reporting
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+  
+  // Handle Search Query
+  $search = '';
+  if (isset($_GET['search']) && $_GET['search'] !== '') {
+      $search = mysqli_real_escape_string($connect, $_GET['search']);
+      $query = "SELECT * FROM events WHERE title LIKE '%$search%' ORDER BY dateAdded DESC";
+  } else {
+      $query = "SELECT * FROM events ORDER BY dateAdded DESC";
+  }
+  $result = mysqli_query($connect, $query);
+  ?>
+
+  <!-- Display All events -->
+<div class="container mt-4">
+  <?php
   $query = 'SELECT *
     FROM events
     ORDER BY dateAdded DESC';
   $result = mysqli_query( $connect, $query );
-
   ?>
 
-  <p>There are <?php echo mysqli_num_rows($result); ?> projects in the database!</p>
+  <p class="mb-4">There are <strong><?php echo mysqli_num_rows($result); ?></strong> events in the database!</p>
 
-  <hr>
-
-  <?php while($record = mysqli_fetch_assoc($result)): ?>
-
-    <div>
-
-      <h2><?php echo $record['title']; ?></h2>
-      <?php echo $record['content']; ?>
-
-      <?php if($record['photo']): ?>
-
-        <p>The image can be inserted using a base64 image:</p>
-
-        <img src="<?php echo $record['photo']; ?>">
-
-        <p>Or by streaming the image through the image.php file:</p>
-
-      <?php else: ?>
-
-        <p>This record does not have an image!</p>
-
-      <?php endif; ?>
-
-    </div>
-
-    <hr>
-
-  <?php endwhile; ?>
+  <div class="row g-4">
+    <?php while($record = mysqli_fetch_assoc($result)): ?>
+      <div class="col-md-4">
+        <div class="card">
+          <?php if ($record['photo']): ?>
+            <img src="<?php echo $record['photo']; ?>" class="card-img-top" alt="<?php echo htmlentities($record['title']); ?>">
+          <?php else: ?>
+            <img src="placeholder.jpg" class="card-img-top" alt="No image available">
+          <?php endif; ?>
+          <div class="card-body">
+            <h5 class="card-title"><?php echo htmlentities($record['title']); ?></h5>
+            <p class="card-text">
+              <strong>Date Added:</strong> <?php echo htmlentities($record['dateAdded']); ?><br>
+              <strong>Type:</strong> <?php echo htmlentities($record['type']); ?><br>
+              <strong>Start:</strong> <?php echo htmlentities($record['dateStart']); ?> <?php echo htmlentities($record['timeStart']); ?><br>
+              <strong>End:</strong> <?php echo htmlentities($record['dateEnd']); ?> <?php echo htmlentities($record['timeEnd']); ?><br>
+              <strong>Location:</strong> <?php echo htmlentities($record['locationID']); ?><br>
+            </p>
+            <?php if (!empty($record['eventLink'])): ?>
+              <a href="<?php echo htmlentities($record['eventLink']); ?>" class="btn btn-primary" target="_blank">Event Link</a>
+            <?php else: ?>
+              <p class="text-muted">No event link available</p>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    <?php endwhile; ?>
+  </div>
+</div>
 
 </body>
 </html>
+
+
+<?php
+
+include( 'admin/includes/footer.php' );
+
+?>
