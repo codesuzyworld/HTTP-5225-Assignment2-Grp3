@@ -112,6 +112,6 @@ include('includes/header.php');
     <input type="submit" value="Update Event">
 </form>
 
-<p><a href="events.php"><i class="fas fa-arrow-circle-left"></i> Return to Event List</a></p>
+<p><a href="events.php"><i class="fas fa-arrow-circle-left"></i> Return to events</a></p>
 
 <?php include('includes/footer.php'); ?>
