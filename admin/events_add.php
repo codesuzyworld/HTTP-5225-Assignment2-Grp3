@@ -50,75 +50,94 @@ include('includes/header.php');
 
 ?>
 
-<h2>Add Event</h2>
+<style>
+    .custom-bg {
+        background-color: #f0f2f2;
+        padding: 20px;
+    }
+</style>
 
-<form method="post">
+<div class="container my-5">
 
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" maxlength="100" required>
-    <br>
-    
-    <label for="content">Content:</label>
-    <textarea name="content" id="content" rows="10" required></textarea>
-        
-    <br>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Add Event</h2>
+        <a href="events.php" class="btn btn-secondary"><i class="fas fa-arrow-circle-left"></i> Return to Event List</a>
+    </div>
 
-    <label for="type">Type:</label>
-    <?php
-        $values = array('Conference', 'Webinar', 'Concert', 'Meetup', 'Network');
-        
-        echo '<select name="type" id="type">';
-        foreach ($values as $value) {
-            echo '<option value="' . $value . '">' . $value . '</option>';
-        }
-        echo '</select>';
-    ?>
+    <!-- Event Adding Form -->
+    <div class="card shadow-sm custom-bg">
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" name="title" id="title" class="form-control" maxlength="100" required>
+                </div>
 
-    <br>
-    
-    <label for="dateStart">Start Date:</label>
-    <input type="date" name="dateStart" id="dateStart" required>
-    
-    <br>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content:</label>
+                    <textarea name="content" id="content" rows="5" class="form-control" required></textarea>
+                </div>
 
-    <label for="dateEnd">End Date:</label>
-    <input type="date" name="dateEnd" id="dateEnd">
-    
-    <br>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type:</label>
+                    <select name="type" id="type" class="form-select">
+                        <?php
+                        $values = array('Conference', 'Webinar', 'Concert', 'Meetup', 'Network');
+                        foreach ($values as $value) {
+                            echo '<option value="' . $value . '">' . $value . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
 
-    <label for="timeStart">Start Time:</label>
-    <input type="time" name="timeStart" id="timeStart">
-    
-    <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="dateStart" class="form-label">Start Date:</label>
+                        <input type="date" name="dateStart" id="dateStart" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dateEnd" class="form-label">End Date:</label>
+                        <input type="date" name="dateEnd" id="dateEnd" class="form-control">
+                    </div>
+                </div>
 
-    <label for="timeEnd">End Time:</label>
-    <input type="time" name="timeEnd" id="timeEnd">
-    
-    <br>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="timeStart" class="form-label">Start Time:</label>
+                        <input type="time" name="timeStart" id="timeStart" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="timeEnd" class="form-label">End Time:</label>
+                        <input type="time" name="timeEnd" id="timeEnd" class="form-control">
+                    </div>
+                </div>
 
-    <label for="locationID">Location:</label>
-    <select name="locationID" id="locationID">
-        <?php
-        // Query to fetch locations from the database
-        $location_query = 'SELECT id, locationName FROM location';
-        $location_result = mysqli_query($connect, $location_query);
+                <div class="mb-3">
+                    <label for="locationID" class="form-label">Location:</label>
+                    <select name="locationID" id="locationID" class="form-select">
+                        <?php
+                        // Query to fetch locations from the database
+                        $location_query = 'SELECT id, locationName FROM location';
+                        $location_result = mysqli_query($connect, $location_query);
 
-        while ($location = mysqli_fetch_assoc($location_result)) {
-            echo '<option value="' . $location['id'] . '">' . $location['locationName'] . '</option>';
-        }
-        ?>
-    </select>
+                        while ($location = mysqli_fetch_assoc($location_result)) {
+                            echo '<option value="' . $location['id'] . '">' . $location['locationName'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
 
-    <br>
+                <div class="mb-3">
+                    <label for="eventLink" class="form-label">Event Link:</label>
+                    <input type="url" name="eventLink" id="eventLink" class="form-control" maxlength="255">
+                </div>
 
-    <label for="eventLink">Event Link:</label>
-    <input type="url" name="eventLink" id="eventLink" maxlength="255">
-
-    <br>
-    <input type="submit" value="Add Event">
-
-</form>
-
-<p><a href="events.php"><i class="fas fa-arrow-circle-left"></i> Return to Event List</a></p>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Add Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <?php include('includes/footer.php'); ?>

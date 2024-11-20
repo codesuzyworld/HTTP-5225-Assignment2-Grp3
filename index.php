@@ -32,14 +32,43 @@ include( 'admin/includes/functions.php' );
     </div>
 </header>
 
+</header>
+
+<!-- Search Bar -->
+<div class="container">
+      <form method="get" action="index.php" class="mt-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Search by Event Name" value="<?php echo isset($_GET['search']) ? htmlentities($_GET['search']) : ''; ?>">
+            <button class="btn btn-light" type="submit">Search</button>
+        </div>
+      </form>
+  </div>
+
 <div class="container mt-4">
   <?php
+  // Error Reporting
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+  
+  // Handle Search Query
+  $search = '';
+  if (isset($_GET['search']) && $_GET['search'] !== '') {
+      $search = mysqli_real_escape_string($connect, $_GET['search']);
+      $query = "SELECT * FROM events WHERE title LIKE '%$search%' ORDER BY dateAdded DESC";
+  } else {
+      $query = "SELECT * FROM events ORDER BY dateAdded DESC";
+  }
+  $result = mysqli_query($connect, $query);
+  ?>
 
+  <!-- Display All events -->
+<div class="container mt-4">
+  <?php
   $query = 'SELECT *
     FROM events
     ORDER BY dateAdded DESC';
   $result = mysqli_query( $connect, $query );
-
   ?>
 
   <p class="mb-4">There are <strong><?php echo mysqli_num_rows($result); ?></strong> events in the database!</p>
