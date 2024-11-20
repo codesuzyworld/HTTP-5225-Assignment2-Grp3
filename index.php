@@ -40,6 +40,14 @@ include('admin/includes/functions.php');
   </nav>
 </header>
 
+<style>
+  .card-img-fixed {
+    max-height: 300px;
+    width: 100%;
+    object-fit: cover; 
+  }
+</style>
+
 <!-- Filters and Searches -->
 <div class="container">
   <form method="get" action="index.php" class="mt-3">
@@ -126,25 +134,30 @@ include('admin/includes/functions.php');
   <p class="mb-4">There are <strong><?php echo mysqli_num_rows($result); ?></strong> events going on!</p>
 
   <div class="row g-4">
-    <?php while ($record = mysqli_fetch_assoc($result)): ?>
-      <div class="col-md-4">
-        <div class="card">
-          <?php if ($record['photo']): ?>
-            <img src="<?php echo $record['photo']; ?>" class="card-img-top" alt="<?php echo htmlentities($record['title']); ?>">
-          <?php else: ?>
-            <img src="placeholder.jpg" class="card-img-top" alt="No image available">
-          <?php endif; ?>
-          <div class="card-body">
-            <h5 class="card-title"><?php echo htmlentities($record['title']); ?></h5>
-            <p class="card-text">
-              <strong>Date Start:</strong> <?php echo htmlentities($record['dateStart']); ?><br>
-              <strong>Type:</strong> <?php echo htmlentities($record['type']); ?><br>
-            </p>
-          </div>
+  <?php while ($record = mysqli_fetch_assoc($result)): ?>
+    <div class="col-md-4">
+      <div class="card">
+        <?php if ($record['photo']): ?>
+          <img src="<?php echo $record['photo']; ?>" class="card-img-fixed" alt="<?php echo htmlentities($record['title']); ?>">
+        <?php else: ?>
+          <img src="placeholder.jpg" class="card-img-fixed" alt="No image available">
+        <?php endif; ?>
+        <div class="card-body">
+          <h5 class="card-title"><?php echo htmlentities($record['title']); ?></h5>
+          <p class="card-text">
+            <?php if (!empty($record['description'])): ?>
+              <strong>Description:</strong> <?php echo htmlentities($record['description']); ?><br>
+            <?php endif; ?>
+            <strong>Start Date:</strong> <?php echo htmlentities($record['dateStart']); ?><br>
+            <strong>End Date:</strong> <?php echo htmlentities($record['dateEnd']); ?><br>
+            <strong>Start Time:</strong> <?php echo htmlentities($record['timeStart']); ?><br>
+            <strong>End Time:</strong> <?php echo htmlentities($record['timeEnd']); ?><br>
+          </p>
+            <a href="<?php echo htmlentities($record['eventLink']); ?>" class="btn btn-primary" target="_blank">Event Link</a>
         </div>
       </div>
-    <?php endwhile; ?>
-  </div>
+    </div>
+  <?php endwhile; ?>
 </div>
 
 </body>
