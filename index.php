@@ -88,18 +88,14 @@ include('admin/includes/functions.php');
                   <i class="fas fa-calendar-alt me-2"></i>
                   <strong>Date:</strong> 
                   <?php 
-                  echo (!empty($record['dateStart']) && !empty($record['dateEnd'])) 
-                      ? htmlentities($record['dateStart']) . ' - ' . htmlentities($record['dateEnd']) 
-                      : 'N/A'; 
+                  echo htmlentities($record['dateStart']) . ' - ' . htmlentities($record['dateEnd']); 
                   ?>
               </li>
               <li>
                   <i class="fas fa-clock me-2"></i>
                   <strong>Time:</strong> 
                   <?php 
-                  echo (!empty($record['timeStart']) && !empty($record['timeEnd'])) 
-                      ? htmlentities($record['timeStart']) . ' - ' . htmlentities($record['timeEnd']) 
-                      : 'N/A'; 
+                  echo htmlentities($record['timeStart']) . ' - ' . htmlentities($record['timeEnd']); 
                   ?>
               </li>
           </ul>
@@ -108,7 +104,7 @@ include('admin/includes/functions.php');
           </button>
           <div id="collapse<?php echo $record['id']; ?>" class="collapse">
             <div class="card-body">
-              <p class="card-text"><?php echo !empty($record['content']) ? htmlentities($record['content']) : 'No description available.'; ?></p>
+              <p class="card-text"><?php echo htmlentities($record['content']);?></p>
             </div>
           </div>
         </div>
