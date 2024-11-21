@@ -42,9 +42,13 @@ include('admin/includes/functions.php');
 
 <style>
   .card-img-fixed {
-    height: 300px;
+    height: 250px;
     width: 100%;
-    object-fit: cover; 
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  .card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 </style>
 
@@ -78,12 +82,8 @@ include('admin/includes/functions.php');
           <?php
           $eventTypes = ['All', 'Conference', 'Webinar', 'Concert', 'Meetup', 'Network'];
           foreach ($eventTypes as $eventType) {
-            // If event type = all, then the type string will be empty
             $typeValue = $eventType === 'All' ? '' : $eventType;
-            // Set active if 'type' matches the event type
-            // Set inactive if it doesnt match or it's all event type
             $isActive = (isset($_GET['type']) && $_GET['type'] === $eventType) || (!isset($_GET['type']) && $eventType === 'All');
-            // If the the event search is active, then apply the class button primary
             $btnClass = $isActive ? 'btn-primary' : 'btn-outline-primary';
             echo '<button type="submit" name="type" value="' . htmlentities($typeValue) . '" class="btn ' . $btnClass . ' me-2 mb-2 px-4">' . $eventType . '</button>';
           }
@@ -115,7 +115,7 @@ include('admin/includes/functions.php');
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
-  // Search Query, Type Filter, and Date Descending Ascending
+  // Search Query, Type Filter, and Date Descending/Ascending
   $search = isset($_GET['search']) ? mysqli_real_escape_string($connect, $_GET['search']) : '';
   $type = isset($_GET['type']) ? mysqli_real_escape_string($connect, $_GET['type']) : '';
   $dateOrder = isset($_GET['dateOrder']) && in_array($_GET['dateOrder'], ['asc', 'desc']) ? $_GET['dateOrder'] : 'desc';
@@ -136,33 +136,35 @@ include('admin/includes/functions.php');
   $result = mysqli_query($connect, $query);
   ?>
 
-  <p class="mb-4">There are <strong><?php echo mysqli_num_rows($result); ?></strong> events going on!</p>
+  <p class="mb-4">There are <strong><?php echo mysqli_num_rows($result); ?></strong> events available!</p>
 
-  <div class="row g-4">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
   <?php while ($record = mysqli_fetch_assoc($result)): ?>
-    <div class="col-md-4">
-      <div class="card">
+    <div class="col">
+      <div class="card h-100">
         <?php if ($record['photo']): ?>
           <img src="<?php echo $record['photo']; ?>" class="card-img-fixed" alt="<?php echo htmlentities($record['title']); ?>">
         <?php else: ?>
-          <img src="placeholder.jpg" class="card-img-fixed" alt="No image available">
+          <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-fixed" alt="No image available">
         <?php endif; ?>
         <div class="card-body">
           <h5 class="card-title"><?php echo htmlentities($record['title']); ?></h5>
-          <p class="card-text">
-            <?php if (!empty($record['description'])): ?>
-              <strong>Description:</strong> <?php echo htmlentities($record['description']); ?><br>
-            <?php endif; ?>
-            <strong>Start Date:</strong> <?php echo htmlentities($record['dateStart']); ?><br>
-            <strong>End Date:</strong> <?php echo htmlentities($record['dateEnd']); ?><br>
-            <strong>Start Time:</strong> <?php echo htmlentities($record['timeStart']); ?><br>
-            <strong>End Time:</strong> <?php echo htmlentities($record['timeEnd']); ?><br>
+          <?php if (!empty($record['type'])): ?>
+            <span class="badge bg-info"><?php echo htmlentities($record['type']); ?></span>
+          <?php endif; ?>
+          <p class="card-text mt-2">
+            <?php echo htmlentities(substr($record['description'], 0, 100)); ?>...
           </p>
-            <a href="<?php echo htmlentities($record['eventLink']); ?>" class="btn btn-primary" target="_blank">Event Link</a>
+          <ul class="list-unstyled small text-muted">
+            <li><strong>Start:</strong> <?php echo htmlentities($record['dateStart']); ?></li>
+            <li><strong>End:</strong> <?php echo htmlentities($record['dateEnd']); ?></li>
+          </ul>
+          <a href="<?php echo htmlentities($record['eventLink']); ?>" class="btn btn-primary btn-sm" target="_blank">View Event</a>
         </div>
       </div>
     </div>
   <?php endwhile; ?>
+  </div>
 </div>
 
 </body>
