@@ -94,9 +94,13 @@ include('admin/includes/functions.php');
           <?php
           $eventTypes = ['All', 'Conference', 'Webinar', 'Concert', 'Meetup', 'Network'];
           foreach ($eventTypes as $eventType) {
+            // If event type = all, then the type string will be empty
             $typeValue = $eventType === 'All' ? '' : $eventType;
+            // Set active if 'type' matches the event type
+           // Set inactive if it doesnt match or it's all event type
             $isActive = (isset($_GET['type']) && $_GET['type'] === $eventType) || (!isset($_GET['type']) && $eventType === 'All');
             $btnClass = $isActive ? 'btn-primary' : 'btn-outline-primary';
+            // If the the event search is active, then apply the class button primary
             echo '<button type="submit" name="type" value="' . htmlentities($typeValue) . '" class="btn ' . $btnClass . ' me-2 mb-2 px-4">' . $eventType . '</button>';
           }
           ?>
