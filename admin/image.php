@@ -30,7 +30,6 @@ switch( $_GET['type'] )
       
 }
 
-
 $data = base64_decode( explode( ',', $record['photo'] )[1] );
 $img = $data;
 

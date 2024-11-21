@@ -11,7 +11,6 @@ include('includes/header.php');
 ?>
 
 <style>
-    /* Cool Hover animation for cards */
     .card:hover {
         background-color: #f8f9fa; 
         transform: translateY(-5px); 
@@ -26,7 +25,6 @@ include('includes/header.php');
         color: #dc3545;
     }
 
-   
     .card-logout .card-body {
         display: flex;
         justify-content: center;
@@ -34,60 +32,75 @@ include('includes/header.php');
         height: 100%;
     }
 
-    
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dashboard {
+        width: 100%;
+        max-width: 800px;
+    }
 </style>
 
-<div class="container my-4">
-    <h1 class="text-center mb-4">Dashboard</h1>
-    <div class="row g-4">
-        <!-- Manage Events -->
-        <div class="col-md-3">
-            <a href="events.php" class="text-decoration-none">
-                <div class="card text-center shadow h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Events</h5>
-                        <p class="card-text text-muted">View and manage Events.</p>
+<main>
+    <div class="container dashboard text-center">
+        <h1 class="mb-4">Dashboard</h1>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <a href="events.php" class="text-decoration-none">
+                    <div class="card text-center shadow h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Events</h5>
+                            <p class="card-text text-muted">View and manage Events.</p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="users.php" class="text-decoration-none">
+                    <div class="card text-center shadow h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">User Accounts</h5>
+                            <p class="card-text text-muted">View and manage users.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="locations.php" class="text-decoration-none">
+                    <div class="card text-center shadow h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Locations</h5>
+                            <p class="card-text text-muted">View and manage event locations.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="logout.php" class="text-decoration-none">
+                    <div class="card text-center shadow h-100 card-logout">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Logout</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-        <!-- Manage Users -->
-        <div class="col-md-3">
-            <a href="users.php" class="text-decoration-none">
-                <div class="card text-center shadow h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">User Accounts</h5>
-                        <p class="card-text text-muted">View and manage users.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!-- Manage Locations -->
-        <div class="col-md-3">
-            <a href="locations.php" class="text-decoration-none">
-                <div class="card text-center shadow h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Locations</h5>
-                        <p class="card-text text-muted">View and manage event locations.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!-- Logout -->
-        <div class="col-md-3">
-            <a href="logout.php" class="text-decoration-none">
-                <div class="card text-center shadow h-100 card-logout">
-                    <div class="card-body">
-                        <h5 class="card-title text-danger">Logout</h5>
-                    </div>
-                </div>
-            </a>
+        <div class="mt-4">
+            <a href="../index.php" class="btn btn-link">Return to Main Page</a>
         </div>
     </div>
-</div>
-<div class="text-center">
-      <a href="../index.php" class="btn btn-link">Return to Main Page</a>
-</div>
+</main>
+
 <?php
 
 include('includes/footer.php');
