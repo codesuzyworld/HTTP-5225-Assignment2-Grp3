@@ -8,7 +8,6 @@ A few notes regarding the CMS:
 - Security is very basic
 - Image uploading is done through a separate page using a basic servers-side script
 - Images are stored in the database as a base64 string
-- Image resizing is done through [WideImage](http://wideimage.sourceforge.net/) (you'll need to add this to the includes folder)
 
 
 Credits:
