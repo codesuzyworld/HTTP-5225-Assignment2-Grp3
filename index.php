@@ -44,6 +44,15 @@ include('admin/includes/functions.php');
 </header>
 
 <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex-grow: 1;
+    }
+
   .card-img-fixed {
     height: 250px;
     width: 100%;
@@ -55,15 +64,86 @@ include('admin/includes/functions.php');
   }
 </style>
 
-<div class="container mt-4">
+<!-- Filters and Searches -->
+<div class="container">
+  <form method="get" action="index.php" class="mt-3">
+    
+    <!-- Search Bar -->
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="input-group">
+          
+          <!-- Search Input and Btn -->
+          <input type="text" class="form-control" name="search" placeholder="Search by Event Name" 
+            value="<?php echo isset($_GET['search']) ? htmlentities($_GET['search']) : ''; ?>">
+          <button class="btn btn-primary px-4" type="submit">Search</button>
+
+          <!-- Reset Search Results -->
+          <?php if (isset($_GET['search']) || isset($_GET['type'])): ?>
+            <a href="index.php" class="btn btn-danger ms-1 px-4">Reset</a>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-10">
+        <!-- Event Type Filter -->
+        <div class="d-flex flex-wrap">
+          <?php
+          $eventTypes = ['All', 'Conference', 'Webinar', 'Concert', 'Meetup', 'Network'];
+          foreach ($eventTypes as $eventType) {
+            $typeValue = $eventType === 'All' ? '' : $eventType;
+            $isActive = (isset($_GET['type']) && $_GET['type'] === $eventType) || (!isset($_GET['type']) && $eventType === 'All');
+            $btnClass = $isActive ? 'btn-primary' : 'btn-outline-primary';
+            echo '<button type="submit" name="type" value="' . htmlentities($typeValue) . '" class="btn ' . $btnClass . ' me-2 mb-2 px-4">' . $eventType . '</button>';
+          }
+          ?>
+        </div>
+      </div>
+      <div class="col-md-2 text-end">
+        <!-- Date Order Buttons -->
+        <div class="btn-group">
+          <button 
+            type="submit" name="dateOrder" value="asc" class="btn btn-outline-primary px-4">
+            <i class="fas fa-arrow-up-wide-short me-2"></i>
+          </button>
+          <button 
+            type="submit" name="dateOrder" value="desc" class="btn btn-outline-primary px-4">
+            <i class="fas fa-arrow-down-wide-short me-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<main class="container mt-4">
   <?php
   // Error Reporting
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
+  // Search Query, Type Filter, and Date Descending/Ascending
+  $search = isset($_GET['search']) ? mysqli_real_escape_string($connect, $_GET['search']) : '';
+  $type = isset($_GET['type']) ? mysqli_real_escape_string($connect, $_GET['type']) : '';
+  $dateOrder = isset($_GET['dateOrder']) && in_array($_GET['dateOrder'], ['asc', 'desc']) ? $_GET['dateOrder'] : 'desc';
+
   // SQL Query
-  $query = "SELECT * FROM events ORDER BY dateStart DESC";
+  $query = "SELECT * FROM events WHERE 1";
+          
+  if (!empty($search)) {
+    $query .= " AND title LIKE '%$search%'";
+  }
+  
+  if (!empty($type)) {
+    $query .= " AND type = '$type'";
+  }
+
+  $query .= " ORDER BY dateStart $dateOrder";
+
   $result = mysqli_query($connect, $query);
   ?>
 
@@ -119,8 +199,7 @@ include('admin/includes/functions.php');
     </div>
   <?php endwhile; ?>
   </div>
-</div>
-
+</main>
+<?php include('admin/includes/footer.php'); ?>
 </body>
 </html>
-<?php include('admin/includes/footer.php'); ?>
