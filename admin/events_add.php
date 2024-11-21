@@ -39,7 +39,7 @@ if (isset($_POST['title'])) {
 
         set_message('Event has been added');
     } else {
-        echo "Error: " . mysqli_error($connect); // This line displays any SQL errors
+        echo "Error: " . mysqli_error($connect);
     }
 
     header('Location: events.php');

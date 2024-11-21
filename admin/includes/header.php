@@ -14,14 +14,6 @@
 </head>
 <body>
 
-  <!-- Message display if needed -->
-  <?php if (get_message()):?>
-    <div class="container mt-3">
-      <div class="alert alert-info" role="alert">
-        <?php echo get_message();?>
-      </div>
-    </div>
-  <?php endif;?>
 
   <!-- Dashboard Nav -->
   <?php if(isset($_SESSION['id'])): ?>
@@ -51,6 +43,14 @@
     </nav>
   <?php endif; ?>
   
+  <!-- Message display if needed -->
+  <?php if (get_message()):?>
+    <div class="container mt-3">
+      <div class="alert alert-info" role="alert">
+        <?php echo get_message();?>
+      </div>
+    </div>
+  <?php endif;?>
 
   
   

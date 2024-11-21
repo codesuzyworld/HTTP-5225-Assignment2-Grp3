@@ -11,7 +11,7 @@ include('admin/includes/functions.php');
   <meta charset="UTF-8">
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   
-  <title>Find your Event</title>
+  <title>EventSphere</title>
   
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@ include('admin/includes/functions.php');
 <header class="bg-primary text-white py-3">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-      <a class="navbar-brand" href="#">Find Your Event</a>
+      <a class="navbar-brand">EventSphere</a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -56,7 +56,6 @@ include('admin/includes/functions.php');
     <div class="row mb-3">
       <div class="col-md-12">
         <div class="input-group">
-          
           <!-- Search Input and Btn -->
           <input type="text" class="form-control" name="search" placeholder="Search by Event Name" 
             value="<?php echo isset($_GET['search']) ? htmlentities($_GET['search']) : ''; ?>">
@@ -64,7 +63,7 @@ include('admin/includes/functions.php');
 
           <!-- Reset Search Results -->
           <?php if (isset($_GET['search']) || isset($_GET['type'])): ?>
-            <a href="index.php" class="btn btn-danger ms-1 px-4">Reset</a>
+            <a href="index.php" class="btn btn-danger px-4">Reset</a>
           <?php endif; ?>
         </div>
       </div>
